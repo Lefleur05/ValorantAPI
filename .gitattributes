@@ -1,0 +1,3 @@
+* linguist-detectable=false
+*.cs linguist-detectable=true
+linguist-language=C#
