@@ -1,10 +1,10 @@
 # Valorant API
-Exercice de 2ème année — durée : 1 semaine, 1 personne.
-Réaliser une application Unity en utilisant l'UI Canvas, intégrée avec l'API publique [valorant-api.com](https://valorant-api.com).
-<br> <br>
+Exercice de 2ème année — durée : 1 semaine, 1 personne.  
+Réaliser une application Unity en utilisant l'UI Canvas, intégrée avec l'API publique [valorant-api.com](https://valorant-api.com).  
+<br>  
 [![Démonstration](https://img.youtube.com/vi/mbdfwoKT9FA/maxresdefault.jpg)](https://youtu.be/mbdfwoKT9FA)
-[▶ Voir la démonstration](https://youtu.be/mbdfwoKT9FA)
-<br> <br>
+[▶ Voir la démonstration](https://youtu.be/mbdfwoKT9FA)  
+<br>   
 ## Présentation rapide
 Application qui a pour but de présenter les différents Agents, Maps et Skins du jeu Valorant.  
 Les informations viennent de  [valorant-api.com](https://valorant-api.com), une API maintenue à jour, le contenu de l'application l'est également. Par exemple, l'agent Miks, les maps Skirmish, ainsi que les skins sortis après la finalisation du projet sont automatiquement disponibles.
