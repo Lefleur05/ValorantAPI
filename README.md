@@ -23,5 +23,5 @@ Dans le menu Skin, vous pouvez parcourir les skins de la Vandal. Cette section e
 Faute de temps dans le cadre de l'exercice, il n'a pas été possible d'aller plus loin que la sélection des skins.
 
 ## Pour tester
-Vous pouvez télécharger la dernière version ici :  [Release](https://github.com/Lefleur05/MaskOfSin/releases/tag/Build).  
+Vous pouvez télécharger la dernière version ici :  [Release](https://github.com/Lefleur05/ValorantAPI/releases/tag/Build).  
 Décompressez le dossier et lancez l'application via le fichier .exe.
