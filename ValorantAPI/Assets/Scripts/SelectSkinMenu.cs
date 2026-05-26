@@ -38,9 +38,16 @@ public class SelectSkinMenu : MonoBehaviour
     void SetWeaponToButton()
     {
         int _size = currentWeapon.Skins.Count;
+        RectTransform _viewport = scrollViewTransform.parent.GetComponent<RectTransform>();
+        float _iconHeight = _viewport.rect.height;
+        float _iconWidth = _iconHeight * 2.0f;// 2.0f ratio for 270 on 80
+
         for (int i = 0; i < _size; i++)
         {
             IconSkinButton _button = Instantiate(toSpawn, scrollViewTransform);
+
+            RectTransform _rectTransfomr = _button.GetComponent<RectTransform>();
+            _rectTransfomr.sizeDelta = new Vector2(_iconWidth, _iconHeight);
 
             _button.Skin = currentWeapon.Skins[i];
             _button.InitWeaponButton();

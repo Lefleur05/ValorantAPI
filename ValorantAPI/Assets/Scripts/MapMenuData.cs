@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -12,6 +13,11 @@ public class MapMenuData : MonoBehaviour
     [SerializeField] List<MapButtonTall> allButtonTall = null;
     [SerializeField] GameObject mapPanel = null;
     [SerializeField] GameObject mapMenuPanel = null;
+
+    [SerializeField] private GridLayoutGroup gridLayout;
+    [SerializeField] private RectTransform viewport;
+    [SerializeField] private int columns = 4;
+    [SerializeField] private float ratioHeightToWidth = 0.5625f;
 
     public Maps Maps { get { return maps; } }
 
@@ -48,11 +54,23 @@ public class MapMenuData : MonoBehaviour
         InitScrollViewAndGridMap();
     }
 
+    void AdjustCellSize()
+    {
+        float _totalWidth = viewport.rect.width;
+        float _cellWidth = (_totalWidth - gridLayout.spacing.x * (columns - 1) - gridLayout.padding.left - gridLayout.padding.right) / columns;
+        float _cellHeight = _cellWidth * ratioHeightToWidth;
+
+        gridLayout.cellSize = new Vector2(_cellWidth, _cellHeight);
+    }
+
     /// <summary>
     /// Init the grid maps, fill the grid with buttonTall, but they an have 1 time the map "TheRange"
     /// </summary>
     void InitScrollViewAndGridMap()
     {
+        AdjustCellSize();
+
+
         bool _theRangeIsPast = false;
         foreach (Map _map in maps.Data)
         {

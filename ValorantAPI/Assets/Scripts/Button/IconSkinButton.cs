@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,7 +35,7 @@ public class IconSkinButton : CustomButton
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
 
     public void InitWeaponButton()
@@ -64,4 +65,5 @@ public class IconSkinButton : CustomButton
         ButtonPictureTexture = _texture;
         GetComponentInChildren<RawImage>().texture = _texture;
     }
+
 }

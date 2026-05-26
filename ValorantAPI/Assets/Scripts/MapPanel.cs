@@ -14,10 +14,11 @@ public class MapPanel : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI textMapName = null;
     [SerializeField] TextMeshProUGUI textMapCoordonate = null;
-    //[SerializeField] RawImage pictureMapInGame = null;
+    [SerializeField] RawImage pictureMapInGame = null;
 
     [SerializeField] MapNextAndPreviousButton nextButtonMap = null;
     [SerializeField] MapNextAndPreviousButton previousButtonMap = null;
+    [SerializeField] Texture2D rangeTexture = null;
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +40,7 @@ public class MapPanel : MonoBehaviour
     {
         if (_map == null)
         {
-            //Debug.Log("Can not set CurrentMap with null");
+            Debug.Log("Can not set CurrentMap with null");
             return;
         }
         currentMap = _map;
@@ -59,16 +60,29 @@ public class MapPanel : MonoBehaviour
         textMapName.text=currentMap.DisplayName;
         textMapCoordonate.text= currentMap.Coordinates;
 
-        DataFetcher.OnMapPictureDataReceived += UpdateBackground;
-        StartCoroutine(DataFetcher.GetMapPictureData(currentMap.Splash));
+        if (!string.IsNullOrEmpty(currentMap.Splash))
+        {
+            DataFetcher.OnMapPictureDataReceived += UpdateBackground;
+            StartCoroutine(DataFetcher.GetMapPictureData(currentMap.Splash));
+        }
         
-        DataFetcher.OnMapPictureInGameDataReceived += UpdateMapInGamePicture;
         string _displayIcon = currentMap.DisplayIcon;
         if (currentMap.DisplayName == "Basic Training" || currentMap.DisplayName == "The Range")
         {
-            _displayIcon = API.URL_MINIMAP_RANGE_PICTURE;
+            Debug.Log(currentMap.DisplayName + " = Basic Training or The Range " + _displayIcon);
+            UpdateMapInGamePicture("", rangeTexture);
+            return;
         }
-        StartCoroutine(DataFetcher.GetMapPictureInGameData(_displayIcon));
+        if (!string.IsNullOrEmpty(_displayIcon))
+        {
+            DataFetcher.OnMapPictureInGameDataReceived += UpdateMapInGamePicture;
+            StartCoroutine(DataFetcher.GetMapPictureInGameData(_displayIcon));
+        }
+        else
+        {
+            pictureMapInGame.gameObject.SetActive(false);
+            Debug.LogWarning($"DisplayIcon null or empty for the map: {currentMap.DisplayName}");
+        }
     }
     
     /// <summary>
@@ -91,12 +105,17 @@ public class MapPanel : MonoBehaviour
     /// <param name="_texture"></param>
     void UpdateMapInGamePicture(string _url, Texture2D _texture)
     {
-        if (currentMap.DisplayIcon != _url)
+        if (currentMap.DisplayIcon != _url && currentMap.DisplayName != "Basic Training" && currentMap.DisplayName != "The Range")
         {
             //Debug.Log(_url);
             return;
         }
-        RawImage[] _images = GetComponentsInChildren<RawImage>();
+        if (pictureMapInGame)
+        {
+            pictureMapInGame.gameObject.SetActive(true);
+            pictureMapInGame.texture = _texture;
+        }
+        /*RawImage[] _images = GetComponentsInChildren<RawImage>();
         foreach (RawImage _image in _images)
         {
             if(_image.name== "MapInGame")
@@ -105,9 +124,7 @@ public class MapPanel : MonoBehaviour
                 _image.texture = _texture;
                 return;
             }
-        }
-        
-
+        }*/
     }
 
     int GetIndexByMap(Map _map)
